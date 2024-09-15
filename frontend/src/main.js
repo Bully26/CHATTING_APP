@@ -7,7 +7,7 @@ import router from "./router/router.js"
 
 
 
-
+/// adding comment
 loadFonts()
 const app = createApp(App)
 app.use(router)
