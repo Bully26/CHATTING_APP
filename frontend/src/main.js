@@ -8,6 +8,8 @@ import router from "./router/router.js"
 
 
 
+
+// this is just a comments
 loadFonts()
 
 const app = createApp(App)
