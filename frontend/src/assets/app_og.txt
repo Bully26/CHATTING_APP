@@ -1,0 +1,166 @@
+<template>
+   <v-app>
+    
+    <v-app-bar flat color="#2a2e2b">
+    <v-layout class='row d-flex justify-start ma-2 '>
+      <v-icon icon="$vuetify" class="me-1 "  color="green"></v-icon>
+      <v-content append-icon="$vuetify">Whatsapp</v-content>
+    </v-layout>
+    <v-layout class=' row d-flex justify-end ma-2 '>
+      <v-btn prepend-icon="$vuetify" class=" "></v-btn>
+      <v-btn prepend-icon="$vuetify" class=" "></v-btn>
+      <v-btn prepend-icon="$vuetify" class=" "></v-btn>
+    </v-layout>
+   </v-app-bar> 
+   
+  
+   <v-navigation-drawer
+   expand-on-hover
+   rail
+   color="#2a2e2b"
+ >
+   <v-divider></v-divider>
+
+   <v-list density="compact" nav >
+     <v-list-item prepend-icon="mdi-folder" title="Chats" value="myfiles" @click="setpg('Chats')"></v-list-item>
+     <v-list-item prepend-icon="mdi-star" title="Status" value="starred"  @click="setpg('Status')"></v-list-item>
+   </v-list>
+ </v-navigation-drawer>
+ <v-navigation-drawer class="bd" >
+   <v-toolbar height="50" class="bg-blue-grey-darken-1 ">
+    <v-flex class="ps-10 " >{{curpage}}</v-flex>
+     
+   </v-toolbar>
+ </v-navigation-drawer>
+ <v-main class="w-100">
+  <v-app-bar height="50" class="bg-blue-grey-darken-1">
+    <v-icon icon="$vuetify" class="ms-10"></v-icon>
+   <v-flex class="ps-2" >{{'PRIYANSHU'}}</v-flex>
+  </v-app-bar>
+
+
+
+  <div style="display: flex; height: 100vh;">
+    <v-virtual-scroll
+    class="900"
+    :items="it"
+  >
+    <template v-slot:default="{ item }">
+      <div :class="set(item.type)">
+        <v-btn :class="sec(item.type)">{{ item.message }}</v-btn>
+      </div>
+    </template>
+    </v-virtual-scroll>
+  </div>
+
+  <v-bottom-navigation  class="d-flex justify-start">
+    <v-layout class="d-flex justify-start">
+    <v-btn @click="send(chatt)">
+      <v-icon>mdi-send</v-icon>
+      <span>SEND</span>
+    </v-btn>
+    <v-text-field  v-model="chatt"></v-text-field>
+     
+    </v-layout>
+  </v-bottom-navigation>
+</v-main>
+
+
+
+   
+
+
+
+
+   </v-app>
+
+
+</template>
+
+<script>
+export default {
+  name: 'App',
+
+  components: {
+
+  },
+
+  data: () => ({
+    chatt:'',
+    it: [
+    {
+        "message": "Hey, how are you?",
+        "type": 1
+    },
+    {
+        "message": "I'm good, thanks! How about you?",
+        "type": 0
+    },
+    {
+        "message": "Doing well, just busy with work.",
+        "type": 1
+    },
+    {
+        "message": "I can relate! Anything exciting coming up?",
+        "type": 0
+    },
+    {
+        "message": "Not much, just the usual. How about you?",
+        "type": 1
+    },
+    {
+        "message": "I'm planning a trip next month!",
+        "type": 0
+    },
+    {
+        "message": "That sounds aweasdasdsome! Where are you going?",
+        "type": 1
+    }
+]
+,
+    curpage:'Chats'
+  }),
+  methods:{
+    setpg(data)
+     {
+         this.curpage=data;
+     },
+     set(t)
+     {
+      if(t==1)return 'd-flex justify-start';
+      return 'd-flex justify-end';
+     },
+     sec(t)
+     {
+      if(t==1)return 'bg-green-accent-3';
+      return 'd-flex justify-end';
+     },
+     send(ch)
+     {
+      if(ch=='')return;
+      this.it.push(
+        {
+          "message":ch,
+          "type":1
+        }
+      )
+     }
+  }
+}
+</script>
+
+<style>
+.full{
+  height:100vh
+}
+.leftMost{
+  width: 2vh
+}
+
+.bd{
+  border-color: blue;
+  border-right: 5px solid rgb(46, 46, 46);
+  
+}
+
+</style>
