@@ -38,6 +38,7 @@ export default {
         {
              let a=this.$store.getters.curuser;
              let b=this.currec;
+             // checking if the chats are intial loaded from the server
              if(!this.$store.state.chats[b]){
              try {
                 let response=await axios.get("http://localhost:3000/chats?",
@@ -48,6 +49,7 @@ export default {
                         }
                     }
                 );
+                // checkking if the response is empty or not
                 if (Object.keys(response.data).length !== 0) {
                 this.add_first_data(response.data);
                 }
@@ -60,6 +62,7 @@ export default {
         add_first_data(res)
         {
             res.forEach(element => {
+                // pushing the chats in front end cache 
                 this.$store.commit('addchat',element);
             });
 
