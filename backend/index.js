@@ -2,7 +2,7 @@ import express from 'express';
 import http from 'http';
 import { Server as SocketIOServer } from 'socket.io';
 import store from "./store/store.js"
-
+import cors from 'cors';
 
 import mongoose from "mongoose"
 import { Chat,Data} from './mongoose/Schema/user.js';
@@ -30,7 +30,9 @@ db.on('error', (err) => {
 
 const app = express();
 const server = http.createServer(app);
-
+app.use(cors({
+  origin: "http://localhost:8080" 
+}));
 const io = new SocketIOServer(server, {
   cors: {
     origin: "http://localhost:8080"
@@ -53,7 +55,7 @@ io.on('connection', (socket) => {
       let a=msg.user;
       let b=msg.recevier;
 
-      if(a>b){
+      if(a<b){
         [a, b] = [b, a];
       }
       
@@ -68,7 +70,7 @@ io.on('connection', (socket) => {
             {
                 message: msg.message,
                 user: msg.user,
-                recevier: msg.receiver
+                recevier: msg.recevier
             }
           ]
         });
@@ -78,7 +80,7 @@ io.on('connection', (socket) => {
           {
             message: msg.message,
             user: msg.user,
-            recevier: msg.receiver
+            recevier: msg.recevier
         }
         );
         await result.save();
@@ -105,4 +107,35 @@ io.on('connection', (socket) => {
 const PORT = 3000;
 server.listen(PORT, () => {
     console.log(`Server is running on http://127.0.0.1:${PORT}`);
+});
+
+
+app.get("/chats",async (req,res)=>{
+   const {user,receiver} = req.query;
+
+   try {
+      let a=user;
+      let b=receiver;
+
+      if(a<b)
+      {
+        [a,b]=[b,a];
+      }
+      const chat_id=a+b;
+      console.log(chat_id);
+      
+      const chats= await Chat.findOne({chatroom_id:chat_id});
+      console.log(JSON.stringify(chats));
+
+      if(chats)
+      {
+        res.json(chats.chat);
+      }else{
+        res.json({});
+      }
+
+   } catch (error) {
+     console.log("error!!");
+     res.status(500).json({ error: "Internal server error" });
+   }
 });
