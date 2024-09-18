@@ -1,13 +1,12 @@
 <template>
     <div class="back">
-     
      <v-app>
      <upperbar></upperbar>
      <leftdrawer></leftdrawer>
      <info></info>
      <cht v-if="checkrec"></cht>
      <bottom v-if="checkrec"></bottom>
-     </v-app>
+   </v-app>
     </div>
   
   
@@ -21,6 +20,7 @@
   import leftdrawer from "../components/drawer_first.vue"
   import upperbar from "../components/navbar.vue"
   import info from "../components/info.vue"
+import { GoogleLogin } from "vue3-google-login"
   export default {
     data(){
            return {
@@ -37,6 +37,11 @@
       checkrec()
       {
         return this.$store.state.have_recevier;
+      }
+    },
+    methods:{
+      fun(){
+        alert('logged');
       }
     }
   }
