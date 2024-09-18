@@ -10,6 +10,7 @@
     "@mdi/font": "5.9.55",
     "axios": "^1.7.7",
     "core-js": "^3.8.3",
+    "localStorage": "^1.0.4",
     "mitt": "^3.0.1",
     "mongoose": "^8.6.3",
     "roboto-fontface": "*",
@@ -29,6 +30,5 @@
     "@vue/cli-service": "~5.0.0",
     "vue-cli-plugin-vuetify": "~2.5.8",
     "webpack-plugin-vuetify": "^2.0.0-alpha.0"
-  },
-  "type": "module"
+  }
 }

@@ -4,15 +4,13 @@
       class="mx-auto"
       max-width="344"
     >
-      <div v-if="user==null">
-        <GoogleLogin :callback="fun" prompt auto-login/>
+      <div v-if="user==null && !this.intialized">
+        <GoogleLogin :callback="fun"/>
       </div>
 
       <div v-if="user!=null">
           {{user}}
       </div>
-
-
       <v-text-field
         hide-details="auto"
         label="First name"
@@ -31,18 +29,29 @@ export default {
   {
     return {
       user:null,
+      intialized:false
     }
   },
+  beforeCreate(){
+    if(localStorage.getItem('JWT'))
+     {
+      this.$store.state.username=decodeCredential(localStorage.getItem('JWT')).email;
+      this.intialized=true;
+      this.$router.push('user');
+      
+     }
+  }
+  ,
   methods:{
     register(){
         if(this.user!='')this.$store.commit('setuser',this.user);
         else alert('invalid name');
     },
-    
     fun(res)
     {
       console.log(res);
       const back=decodeCredential(res.credential);
+      localStorage.setItem("JWT",res.credential);
       console.log(back);
       this.user=back.email;
       this.register();
