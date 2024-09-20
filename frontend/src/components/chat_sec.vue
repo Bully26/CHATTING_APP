@@ -12,7 +12,7 @@
       >
         <template v-slot:default="{ item }" >
           <div :class="set(item)">
-            <v-content :class="sec(item)" class="chatbox py-3">
+            <v-content :class="sec(item)" class="chatbox py-3 my-1">
               <div class="px-7">{{ item.message }}</div>
             </v-content>
           </div>

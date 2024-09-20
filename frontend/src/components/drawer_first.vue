@@ -23,8 +23,10 @@
       
        
       
-      <v-list-item prepend-icon="mdi-folder" title="Chats" value="myfiles" @click="setpg('Chats')"></v-list-item>
-      <v-list-item prepend-icon="mdi-star" title="Status" value="starred"  @click="setpg('Status')"></v-list-item>
+      <v-list-item prepend-icon="mdi-folder" title="Chats" @click="setpg('Chats')"></v-list-item>
+      <v-list-item prepend-icon="mdi-star" title="Status"   @click="setpg('Status')"></v-list-item>
+      <v-list-item prepend-icon="mdi-star" title="AddUser"   @click="setpg('Add User')"></v-list-item>
+      <v-list-item prepend-icon="mdi-star" title="CreateRoom"   @click="setpg('CreateRoom')"></v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>

@@ -5,7 +5,7 @@
           <v-content append-icon="$vuetify">kk</v-content>
         </v-layout>
         <v-layout class=' row d-flex justify-end ma-2 '>
-          <v-btn prepend-icon="mdi-logout" class=" "></v-btn>
+          <v-btn prepend-icon="mdi-logout" class=" " @click="logout"></v-btn>
         </v-layout>
        </v-app-bar> 
 </template>
@@ -13,7 +13,14 @@
 <script>
 export default {
     data() {
+
    
+  },
+  methods:{
+          logout(){
+            localStorage.removeItem('JWT');
+            this.$router.push('/');
+          }
   }
 }
 </script>

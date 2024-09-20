@@ -1,4 +1,5 @@
 
+import socket from '@/assets/socket';
 import { createStore } from 'vuex';
 
 const store = createStore({
@@ -9,8 +10,9 @@ const store = createStore({
     recevier:"",
     have_recevier:false,
     chats: {},
-    friend:['1','2','3','4','5'],
+    friend:[],
     receivedMessageIds: new Set(),
+    socket:null
   },
   getters: {
     curuser: state => state.username,
@@ -26,7 +28,7 @@ const store = createStore({
     },
     setroom: (state, payload) => {
       state.room_id = payload;
-    },
+    },  
     addchat: (state, payload) => {
       if(!state.receivedMessageIds.has(payload.id))
         {
@@ -43,6 +45,10 @@ const store = createStore({
     },
     addReceivedMessageId: (state, messageId) => {
       state.receivedMessageIds.add(messageId);
+    },
+    addfriend:(state,payload)=>{
+      if(state.friend.includes(payload) || payload==state.username)return;
+      else state.friend.push(payload);
     }
   }
 });

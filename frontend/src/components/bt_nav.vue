@@ -26,23 +26,23 @@ export default {
         }
     },
      mounted(){
-        this.socket=io('http://localhost:3000/');
-        this.socket.on('message_client',(data)=>{
+        if(this.$store.state.socket==null)this.$store.state.socket=io('http://localhost:3000/');
+        this.$store.state.socket.emit('user',this.$store.getters.curuser);
+        this.$store.state.socket.on('message_client',(data)=>{
              this.$store.commit('addchat',data);
              this.$store.commit('addReceivedMessageId',data.id);
         });
-        this.socket.emit('user',this.$store.getters.curuser);
+        
     },
     methods:{
         send(data){
-            this.socket.emit('message_server',
+            this.$store.state.socket.emit('message_server',
                 {
                     message:this.chatt,
                     user:this.$store.getters.curuser,
                     recevier:this.$store.state.recevier
                 }
             )
-            // this.chatt='';
         }
     }
 }
